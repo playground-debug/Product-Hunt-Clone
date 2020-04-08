@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load staticfiles %}
+<br>
+<div class="row">
+	<div class="col-1">
+		<img src="{% static 'notification.png' %}" height="40px">
+	</div>
+	<div class="col-11">
+		<h3>Messages</h3>
+	</div>
+</div>
+<hr>
+<br>
+{% for message in messages %}
+<div class="row">
+	<div class="col-md-12">
+		<div class="card mb-4 shadow-sm">
+			<img src="{{message.product_info.image.url}}" height="100px">
+			<div class="card-body">
+				<p class="card-text">{{message.sender}} ~ {{message.body}}</p>
+				<div class="d-flex justify-content-between align-items-center">
+					<div class="btn-group">
+						<a href="{% url 'detail' message.product_info.id %}"><button type="button" class="btn btn-sm btn-outline-secondary">View</button></a> &nbsp;
+						<form action="{% url 'discard' message.id %}" method="post">
+							{% csrf_token %}
+							<a>
+								<button type="submit" class="btn btn-sm btn-outline-secondary">Discard</button>
+							</a>
+						</form>
+					</div>
+					<small class="text-muted">{{message.time}}</small>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<br>
+{% endfor %}
+{% endblock %}

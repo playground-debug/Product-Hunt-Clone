@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load staticfiles %}
+<br>
+<br>
+{% for products in products.all %}
+<a style="text-decoration: none;" class="text-muted p-3 mb-2 bg-transparent text-dark" href="{% url 'detail' products.id %}">
+	<div class="row">
+		<div class="col-2">
+			<img src="{{products.icon.url}}" class="img-fluid">
+		</div>
+		<div class="col-7">
+			<h1 style="text-decoration: underline;">
+				{{products.title}}
+			</h1>
+			<br>
+			<p>
+				{{products.summary}}.....
+			</p>
+		</div>
+		<div class="col-3">
+			<div class="text-center btn-primary btn-lg btn-block">
+				<img src="{% static 'up.png' %}" height="40" width="40"> UPVOTE &nbsp; {{products.votes_total}}
+			</div>
+		</div>
+	</div>
+</a>
+<br>
+<br>
+{% endfor %}
+
+{% endblock %}
